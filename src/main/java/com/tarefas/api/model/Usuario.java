@@ -2,8 +2,15 @@ package com.tarefas.api.model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.tarefas.api.constants.Roles;
 import com.tarefas.api.constants.StatusUsuario;
 import com.tarefas.api.dto.UsuarioDTO;
 
@@ -23,7 +30,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity(name = "tb_usuarios")
-public class Usuario {
+public class Usuario implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -60,6 +67,11 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private StatusUsuario status;
 
+    @NotNull
+    @Column(name = "roles")
+    @Enumerated(EnumType.STRING)
+    private Roles role;
+
     public UsuarioDTO toDTO() {
         UsuarioDTO dto = new UsuarioDTO();
 
@@ -79,4 +91,46 @@ public class Usuario {
         return dto;
     }
 
+   
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        switch (role) {
+            case ADMIN:
+                return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            case USER:
+                return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+            default:
+                return List.of(new SimpleGrantedAuthority("ROLE_GUEST"));
+        }
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+       return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
