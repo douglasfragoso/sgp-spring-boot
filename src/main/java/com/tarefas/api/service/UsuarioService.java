@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.tarefas.api.constants.Roles;
 import com.tarefas.api.dto.UsuarioDTO;
 import com.tarefas.api.exception.CpfJaCadastradoException;
 import com.tarefas.api.model.Usuario;
@@ -26,6 +27,8 @@ public class UsuarioService {
             throw new CpfJaCadastradoException("Já existe usuário com o CPF informado.");
         }
 
+        usuario.setRole(Roles.USER);
+        
         return usuarioRepository.save(usuario);
     }
 
