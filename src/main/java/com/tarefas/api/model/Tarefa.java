@@ -36,9 +36,6 @@ public class Tarefa {
     @Column(name = "TITULO_TAREFA", nullable = false)
     private String titulo;
 
-    @Column(name = "DESC_TAREFA", columnDefinition = "TEXT")
-    private String descricao;
-
     @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "DT_CRIACAO_TAREFA", nullable = false)
     private LocalDate dataCriacao;
@@ -55,19 +52,22 @@ public class Tarefa {
     @Enumerated(EnumType.STRING)
     private StatusTarefa status;
 
-    @ManyToOne
     @JoinColumn(nullable = false)
     private Projeto projeto;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Usuario usuario;
 
     public TarefaDTO toDTO() {
         TarefaDTO dto = new TarefaDTO();
 
         dto.setId(id);
         dto.setTitulo(titulo);
-        dto.setDescricao(descricao);
         dto.setDataCriacao(dataCriacao);
         dto.setDataConclusao(dataConclusao);
         dto.setProjeto(projeto);
+        dto.setUsuario(usuario);
 
         Period periodo = null;
 

@@ -46,7 +46,6 @@ public class TarefaService {
             Tarefa tarefa = tarefaOpt.get();
 
             tarefa.setTitulo(dadosTarefa.getTitulo());
-            tarefa.setDescricao(dadosTarefa.getDescricao());
             tarefa.setDataCriacao(dadosTarefa.getDataCriacao());
             tarefa.setDataConclusao(dadosTarefa.getDataConclusao());
             tarefa.setPrioridade(dadosTarefa.getPrioridade());
