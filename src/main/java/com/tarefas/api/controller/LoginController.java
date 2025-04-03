@@ -40,8 +40,9 @@ public class LoginController {
                 Usuario loggedUser = (Usuario) authentication.getPrincipal();
 
                 String token = tokenService.generateToken(loggedUser);
+                String role = tokenService.getRole(token);
 
-                UsuarioLoginDTO userDTO = new UsuarioLoginDTO(loggedUser.getNome(), token);
+                UsuarioLoginDTO userDTO = new UsuarioLoginDTO(loggedUser.getNome(), token, role);
 
                 return ResponseEntity.status(HttpStatus.OK).body(userDTO);
         }
