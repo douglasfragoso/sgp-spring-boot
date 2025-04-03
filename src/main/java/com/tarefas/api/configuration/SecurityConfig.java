@@ -29,6 +29,7 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(customizer -> {
+                    customizer.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll();
                     customizer.requestMatchers(HttpMethod.POST, "/auth/v1/login").permitAll();
                     customizer.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
                     customizer.requestMatchers(HttpMethod.GET, "/h2-console/**").permitAll();

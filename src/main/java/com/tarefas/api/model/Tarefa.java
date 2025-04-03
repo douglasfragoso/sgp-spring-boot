@@ -52,6 +52,7 @@ public class Tarefa {
     @Enumerated(EnumType.STRING)
     private StatusTarefa status;
 
+    @ManyToOne
     @JoinColumn(nullable = false)
     private Projeto projeto;
 
