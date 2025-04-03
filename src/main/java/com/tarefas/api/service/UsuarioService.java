@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.tarefas.api.constants.Roles;
@@ -20,6 +21,9 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public Usuario salvarUsuario(Usuario usuario) {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByCpf(usuario.getCpf());
 
@@ -27,6 +31,7 @@ public class UsuarioService {
             throw new CpfJaCadastradoException("Já existe usuário com o CPF informado.");
         }
 
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         usuario.setRole(Roles.USER);
         
         return usuarioRepository.save(usuario);

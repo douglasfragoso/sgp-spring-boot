@@ -29,7 +29,6 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(customizer -> {
-                    // customizer.requestMatchers(AUTH_WHITELIST).permitAll();
                     customizer.requestMatchers(HttpMethod.POST, "/auth/v1/login").permitAll();
                     customizer.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
                     customizer.requestMatchers(HttpMethod.GET, "/h2-console/**").permitAll();
@@ -41,17 +40,6 @@ public class SecurityConfig {
                 .build();
     }
 
-    // private static final String[] AUTH_WHITELIST = {
-    //         "/v2/api-docs",
-    //         "/swagger-resources",
-    //         "/swagger-resources/**",
-    //         "/configuration/ui",
-    //         "/configuration/security",
-    //         "/swagger-ui.html",
-    //         "/webjars/**",
-    //         "/v3/api-docs/**",
-    //         "/swagger-ui/**"
-    // };
 
     //Faz o AuthenticationManager ser injetado no SecurityFilter, usado no AuthenticationController - Causes AuthenticationManager to be injected into SecurityFilter, used in AuthenticationController
     @Bean

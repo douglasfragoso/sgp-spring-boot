@@ -67,7 +67,6 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private StatusUsuario status;
 
-    @NotNull
     @Column(name = "roles")
     @Enumerated(EnumType.STRING)
     private Roles role;
