@@ -1,4 +1,4 @@
-# Created at 2025-04-03T20:15:36.131
+# Created at 2025-04-03T20:29:09.564
 Boot Manifest-JAR contains absolute paths in classpath 'D:\Área de Trabalho\React - Treina Recife\sgp-portal-web-main\tarefas-api\target\test-classes'
 Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
 'other' has different root
